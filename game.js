@@ -32,6 +32,9 @@ class Game {
             if (quest.x + quest.width <= 0) {
                 this.quests.splice(index, 1);
             }
+
+            //USE COLLISION OF OBSTACLES & PLAYER TO TRIGGER THE QUESTS
+
             // if (this.isCollision(quest, this.player)) {
             //trigger quest
             // }
@@ -42,7 +45,7 @@ class Game {
 }
 
 
-//USE COLLISION OF OBSTACLES & PLAYER TO TRIGGER THE QUESTS
+
 
 //CHECK IF QUESTS WERE ANSWERED CORRECTLY, ADD POINTS TO SCORE / SUBTRACT LIVES
 
