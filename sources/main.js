@@ -3,8 +3,9 @@ const game = new Game();
 
 function setup() {
     //console.log("setup");
-    createCanvas(900, 304); //responsive behaviour is not working (window.innerHeight))?
+    createCanvas(window.innerWidth, window.innerHeight);
     game.setup();
+    mode = 0;
 }
 
 function draw() {
@@ -14,7 +15,7 @@ function draw() {
 
 //CREATE FUNCTION FOR STARTING THE GAME ON THE SECOND BACKGROUND
 //if (keyCode === 32){
-//load the second background;
+//mode = 1;
 //}
 
 

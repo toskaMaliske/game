@@ -1,12 +1,11 @@
 //DESCRIBE QUESTS class
 class Quests {
     constructor() {
-        this.x = random(width, 0);
+        this.x = random(width, height);
+        this.y = random(0, height);
 
-        this.y = random(0, height)
-
-        this.width = 20;
-        this.height = 20;
+        this.width = 30;
+        this.height = 30;
     }
 
     //DRAW QUESTS

@@ -5,18 +5,18 @@ class Player {
         this.lives = 3;
         this.x = 100;
         this.velocity = 0;
-        this.gravity = 0.5;
+        this.gravity = 0.15;
         this.jumpCount = 0;
     }
 
     setup() {
         //console.log(this.img.width, this.img.height);
-        this.y = height - 190;
+        this.y = height - 170;
 
         this.originalY = this.y
 
-        this.height = pinkMonster.height * 2;
-        this.height = pinkMonster.height * 2;
+        this.height = pinkMonster.height * 4;
+        this.width = pinkMonster.width * 3;
     }
 
     draw() {
@@ -36,7 +36,7 @@ class Player {
     jump() {
         //console.log("jump");
         if (this.jumpCount < 2) {
-            this.velocity = -8;
+            this.velocity = -9;
             this.jumpCount++;
         }
     }

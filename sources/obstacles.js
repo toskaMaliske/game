@@ -1,23 +1,18 @@
 class Obstacles {
     constructor() {
-        this.x = width;
+        this.x = random(width, 0);
 
-        this.y = height;
+        this.y = random(0, height);
 
-        this.width = 100;
+        this.width = 50;
         this.height = 50;
-    }
-
-    //PRELOAD OBSTACLE IMAGE 
-    preload() {
-        this.img = loadImage("/assets/tileset1.png")
     }
 
 
     //DRAW OBSTACLES
     draw() {
-        Image(this.img, this.x, this.y, this.width, this.height);
-        this.x -= 4;
+        image(obstacleImg, this.x, this.y, this.width, this.height);
+        this.x -= 3;
     }
 
 }
