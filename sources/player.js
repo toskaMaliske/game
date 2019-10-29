@@ -5,7 +5,7 @@ class Player {
         this.lives = 3;
         this.x = 100;
         this.velocity = 0;
-        this.gravity = 0.15;
+        this.gravity = 0.13;
         this.jumpCount = 0;
     }
 
