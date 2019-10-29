@@ -21,10 +21,10 @@ class Game {
         this.background.draw();
         this.player.draw();
 
-        text("Score: ", +this.player.score, 10, 500); //y-position not working?
+        text("Score: " + this.player.score, width - 200, height - 800); //y-position not working?
+        text("Lives: " + this.player.lives, width - 200, height - 750);
         fill(255, 255, 255);
 
-        // if (Math.random(frameCount > 480)){
         if (frameCount > 480 && frameCount % 240 === 0) {
             this.quests.push(new Quests());
             //console.log("create new quests");
@@ -39,13 +39,14 @@ class Game {
             }
             if (this.playerCollision(quest, this.player)) {
                 console.log("Quest Collision");
+                // this.player.score++;
                 noLoop();
             }
 
         });
 
 
-        if (frameCount > 240 && frameCount % 120 === 0) {
+        if (frameCount > 60 && frameCount % 240 === 0) {
             this.obstacles.push(new Obstacles());
             //console.log("create new obstacle");
         }
@@ -58,14 +59,19 @@ class Game {
             }
             if (this.playerCollision(obstacle, this.player)) {
                 console.log("Obstacle collision");
+                // this.player.lives -= 1;
                 noLoop();
+                // if (this.player.lives == 0) {
+                //     mode = 3;
+                //}
             }
+
         });
     }
 
 
     playerCollision(item, player) {
-        if (player.x + player.width <= item.x || item.x + player.width <= player.x) {
+        if (player.x + player.width <= item.x || item.x + player.width <= player.x) { //try to set half of the width so that collision is not occuring to early  
             return false;
         }
         if (player.y > item.y + item.height || item.y > player.y + player.height) {
@@ -84,5 +90,3 @@ class Game {
 //TRIGGER QUESTS
 
 //CHECK IF QUESTS WERE ANSWERED CORRECTLY, ADD POINTS TO SCORE / SUBTRACT LIVES
-
-//INITIALIZE DIFFERENT BACKGROUNDS? => /DECLARE LEVEL VERIABEL 

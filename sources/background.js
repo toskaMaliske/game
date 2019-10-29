@@ -1,5 +1,3 @@
-let mode;
-
 class Background {
     constructor() {
         this.x = 0;
@@ -7,11 +5,11 @@ class Background {
 
     //DRAW BACKGORUND
     draw() {
-        if (mode = 0) {
+        if (mode == 0) {
             background('rgba(169, 169, 169, 0.25');
             text("Type in your name and press enter to start", 20, 40);
             console.log(mode);
-        } else if (mode = 1) {
+        } else if (mode == 1) {
             clear();
 
             this.x -= 1;
@@ -22,7 +20,7 @@ class Background {
                 this.x = 0;
 
             }
-        } else if (mode = 2) {
+        } else if (mode == 2) {
             background('rgba(169, 169, 169, 0.25');
 
         }
@@ -33,3 +31,9 @@ class Background {
 //     start-background ()
 //     play-background ()
 //     game-over-background()
+
+
+
+//for the background noloop() when the quests get triggered 
+
+//use input + button p5 (do checking of questions with multiple choice - check value)

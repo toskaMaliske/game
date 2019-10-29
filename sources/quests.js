@@ -12,6 +12,6 @@ class Quests {
     draw() {
 
         image(starImg, this.x, this.y, this.width, this.height);
-        this.x -= 6
+        this.x -= 4
     }
 }
