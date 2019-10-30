@@ -4,7 +4,7 @@ class Player {
         this.score = 0;
         this.lives = 3;
         this.x = 100;
-        this.y = 100;
+        // this.y = 100;
         this.velocity = 0;
         this.gravity = 0.13;
         this.jumpCount = 0;
@@ -12,7 +12,7 @@ class Player {
     }
 
     setup() {
-        // this.y = height - 170;
+        this.y = height - 170;
         // console.log(this.x, this.y);
 
         this.originalY = this.y
