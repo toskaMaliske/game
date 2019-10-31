@@ -7,57 +7,68 @@ class Game {
         this.quests = [];
 
         this.obstacles = [];
+
+        this.trophies = [];
     }
 
 
-    // SETUP PLAYER (+ MODES?)
     setup() {
-        // mode = 0;
         this.player.setup();
     }
 
 
-    //DRAW BACKGROUND, PLAYER & OBSTACLE 
     draw() {
-        // clear();
         if (mode == 0) {
-            textSize(21);
-            let welcomeText = "Welcome to ";
-            let startText = "Press space to start the game!";
-            textSize(30);
-            let startTitle = "Web Dev Bootcamp 101";
+            background('#222222');
+            textAlign(CENTER);
+            fill("white");
 
-            text(welcomeText + startTitle + startText, width / 3, height / 3, width / 3, height / 3);
+            textSize(20);
+            let welcomeText = "Welcome to ";
+
+            text(welcomeText, 450, 150);
+
+            textSize(30);
+            let startTitle = "Web Dev Bootcamp 101 ";
+            text(startTitle, 450, 200);
+
+
+            fill("white");
+            let startText = "Press SPACE to start the game!";
+            textSize(20);
+            text(startText, 450, 420);
+
+
+
         }
         if (mode == 1) {
 
             this.background.draw();
             this.player.draw();
 
-            text("Score: " + this.player.score, width - 200, height - 800); //y-position not working?
-            text("Lives: " + this.player.lives, width - 200, height - 750);
-            fill(255, 255, 255);
+            let scoreText = "Score: ";
+            let livesText = "Lives: ";
 
+            text(scoreText + this.player.score, width - 80, height - 450);
+            text(livesText + this.player.lives, width - 80, height - 420);
+            fill("white");
 
 
             if (frameCount > 480 && frameCount % 240 === 0) {
                 this.quests.push(new Quests());
-                //console.log("create new quests");
             }
 
 
             this.quests.forEach((quest, index) => {
-                // console.log("----", quest)
                 quest.draw();
 
-                if (quest.x + quest.width <= 1 && quest.y + quest.height >= 1) {
-                    // if (quest.x - width <= 0 || quest.x + width >= width || quest.y - height <= 0 || quest.y + height >= height) {
+                if (quest.x + quest.width <= 0 && quest.y + quest.height >= 0) {
                     this.quests.splice(index, 1);
                 }
 
                 if (this.playerCollision(quest, this.player)) {
-                    console.log("Quest Collision");
-                    this.triggerQuiz();
+                    this.quests.splice(index, 1);
+                    this.player.score += 1;
                 }
 
             });
@@ -65,25 +76,82 @@ class Game {
 
             if (frameCount > 60 && frameCount % 240 === 0) {
                 this.obstacles.push(new Obstacles());
-                //console.log("create new obstacle");
             }
 
             this.obstacles.forEach((obstacle, index) => {
-                // console.log("----", obstacle)
                 obstacle.draw();
-                if (obstacle.x + obstacle.width <= 1 && obstacle.y + obstacle.height >= 1) { //bottom (max-y not working!)
+                if (obstacle.x + obstacle.width <= 0 && obstacle.y + obstacle.height >= 0) {
                     this.obstacles.splice(index, 1);
                 }
                 if (this.playerCollision(obstacle, this.player)) {
-                    console.log("Obstacle collision");
+                    this.obstacles.splice(index, 1);
                     this.player.lives -= 1;
-                    if (this.player.lives === 0) {
-                        mode = 3;
-                    }
+                }
+
+                if (this.player.lives === 0) {
+                    mode = 2;
+                }
+                // }
+
+            });
+
+
+            if (frameCount > 1200 && frameCount % 1200 === 0) {
+                this.trophies.push(new Trophies());
+            }
+
+
+            this.trophies.forEach((trophy, index) => {
+                trophy.draw();
+
+                if (trophy.x + trophy.width <= 0 && trophy.y + trophy.height >= 0) {
+                    this.trophies.splice(index, 1);
+                }
+
+                if (this.playerCollision(trophy, this.player)) {
+                    this.trophies.splice(index, 1);
+                    this.player.lives += 1;
+                    // this.triggerQuiz();
                 }
 
             });
+
+
+            //end of mode 1 ===========================================================            
         }
+
+        if (mode == 2) {
+
+            background('#222222');
+            textAlign(CENTER);
+            textSize(30);
+            fill("white");
+
+            let gameOverTitle = "Game Over";
+            text(gameOverTitle, 450, 200);
+
+            if (this.player.score === 0) {
+                loseMessage = ("You're final score is: ");
+                text(loseMessage + this.player.score, 450, 300);
+                text("Refresh the page to try again.", 450, 400);
+                fill("white");
+            } else {
+                congrats = "Congratulations, you're final score is: ";
+                text(congrats + this.player.score, 450, 300);
+
+            }
+
+            fill("white");
+
+            // let restart = "Press SPACE to restart the game";
+            // text(restart, width / 3, height / 2, width / 3, height / 2);
+            // fill("white");
+
+            keyPressed(); //restart the game
+
+
+        }
+
 
         //End of draw()=============================================================
     }
@@ -100,68 +168,54 @@ class Game {
         return true;
     }
 
-    triggerQuiz() {
-        input = createInput();
-        input.position(20, 65);
+    // triggerQuiz() {
+    //     //use a container to hide the everything in triggerQuiz when enter is pressed, assign a class to all of the elements
+    //     fill(255, 255, 255);
+    //     textAlign(CENTER);
 
-        // inputName = createcreateElement("");
-        // inputName.position(20, 20);
+    //     input = createInput();
+    //     input.position(20, 65);
 
-        button = createButton('submit');
-        button.position(input.x + input.width, 65);
-        button.mousePressed(this.triggerQuiz);
+    //     button = createButton('submit');
+    //     button.position(input.x + input.width, 65);
 
-        greeting = createElement('h2', 'Solve a Javascript question to earn 2 score points');
-        greeting.position(20, 5);
-        fill(255, 255, 255);
-        textAlign(CENTER);
-        textSize(50);
+    //     greeting = createElement('h2', 'Solve a Javascript question to earn 2 score points');
+    //     greeting.position(20, 5);
+    //     textSize(50);
+
+    //     question = createElement("h3", random(quiz).prompt);
+    //     quiz.splice(question);
+    //     question.position(20, greeting.y + greeting.height);
+    //     textSize(45);
+
+    //     answer = random(quiz).answer;
+
+    //     alertRight = createElement("h3", "");
+    //     alertRight.position(20, question.y + question.height);
+
+    //     alertWrong = createElement("h3", "");
+    //     alertWrong.position(20, question.y + question.height);
+
+    //     returnGame = createElement("h3", "Press RETURN to resume the game");
+    //     returnGame.position(20, question.y + question.height * 2);
+
+    //     if (input === answer) {
+    //         button.mousePressed(alertRight = "Congrats you've scored 2 points!");
+    //         // clear.input();
+    //         // clear.alertRight();
+    //     } else {
+    //         button.mousePressed(alertWrong = "Sorry, that is wrong!");
+    //         // clear.input();
+    //         // clear.alertWrong();
+    //     }
 
 
-        for (let i = 0; i < quiz.length; i++) {
-            // inputName = quiz[i].prompt;
-            let response = input.value();
-            if (response == quiz[i].answer) {
-                console.log("right!");
-                this.player.score += 2;
-            }
-        }
+    //     //check button.onSubmit for the alerts?
 
-    }
+
+    // }
 
 
 
+    //end of game()=============================================================    
 }
-if (mode == 3) {
-    createCanvas();
-    background('#222222');
-    textSize(30);
-    let gameOverTitle = "Game Over";
-    text(gameOverTitle, width / 3, height / 3, width / 3, height / 3);
-    //game over + score screen 
-}
-
-
-//end of game()=============================================================    
-}
-
-
-
-
-// if (mode == 2) { //triggered by quests
-//     console.log("mode: " + mode);
-//     for (let i = 0; i < quiz.length; i++) {
-//         let response = window.prompt(quiz[i].prompt);
-//         if (response == quiz[i].answer) {
-//             console.log("right!");
-//             // this.player.score++;
-//         }
-//     }
-// }
-
-
-
-//==========================================================
-
-
-//CHECK IF QUESTS WERE ANSWERED CORRECTLY, ADD POINTS TO SCORE / SUBTRACT LIVES

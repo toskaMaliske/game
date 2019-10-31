@@ -4,15 +4,14 @@ class Player {
         this.score = 0;
         this.lives = 3;
         this.x = 100;
-        // this.y = 100;
         this.velocity = 0;
-        this.gravity = 0.13;
+        this.gravity = 0.2;
         this.jumpCount = 0;
 
     }
 
     setup() {
-        this.y = height - 170;
+        this.y = height - 120;
         // console.log(this.x, this.y);
 
         this.originalY = this.y
@@ -23,8 +22,8 @@ class Player {
         this.velocity += this.gravity;
         this.y += this.velocity;
 
-        this.height = pinkMonster.height * 4;
-        this.width = pinkMonster.width * 4;
+        this.height = pinkMonster.height * 3;
+        this.width = pinkMonster.width * 3;
 
         if (this.y > this.originalY) {
             this.y = this.originalY;
@@ -39,7 +38,7 @@ class Player {
     jump() {
         //console.log("jump");
         if (this.jumpCount < 2) {
-            this.velocity = -9;
+            this.velocity = -8.5;
             this.jumpCount++;
         }
     }
